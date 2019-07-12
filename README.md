@@ -10,7 +10,7 @@
 ## How to use
 
 ```bash
-npm install --save express-s3-image-resources
+npm install --save upgrad/express-s3-image-resources
 ```
 
 ```js

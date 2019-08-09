@@ -6,7 +6,6 @@ var imageJson = require("./../store/index").imageJson;
 /**
  *
  * @param {string} metaData.title
- * @param {string} metaData.size
  * @param {string} metaData.s3Path
  * @param {string} metaData.s3Bucket
  * @param {File} imageFile
@@ -14,7 +13,7 @@ var imageJson = require("./../store/index").imageJson;
 
 module.exports = function (awsS3Client, imageFile, metaData, callBack) {
 	// EPOCH is suffixed to slug to avoid duplication
-	var imageName = metaData.title + "__" + metaData.size + "__" + Date.now() + ".png";
+	var imageName = metaData.title + "__" + Date.now() + ".png";
 	var imageKey = metaData.s3Path + "/" + imageName;
 
 	fs.readFile(imageFile.path, function (err, imageData) {

@@ -18,8 +18,11 @@ module.exports = function (awsS3Client, metaData, query, cache, callback) {
 			}]
 		};
 
-		var fuse = new Fuse(store.imageJson, options);
-		var result = fuse.search(query);
+		var result = store.imageJson;
+		if (query != '__getDefaultImgs__') {
+			var fuse = new Fuse(store.imageJson, options);
+			result = fuse.search(query);
+		}
 		callback(undefined, result);
 	};
 

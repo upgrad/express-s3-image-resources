@@ -18,7 +18,9 @@ module.exports = function (awsS3Client, metaData, query, cache, callback) {
 			}]
 		};
 
-		var result = store.imageJson;
+		var result = (store.imageJson || []).filter(function (data) {
+			return data.slug;
+		});
 		if (query != '__getDefaultImgs__') {
 			var fuse = new Fuse(store.imageJson, options);
 			result = fuse.search(query);

@@ -29,9 +29,17 @@ app.use("/gallery", gallery(AWS_CREDS));
 
 ## Options
 
-####  ```gallery(awsConfigOrInstance, cacheTime)```
+####  ```gallery(awsConfigOrInstance, cacheTime, middlewares)```
 
 
 - **awsConfigOrInstance** - This can be either a instance of class AWS or a config mentioned in the above example.
 
 - **cacheTime(ms)** - This is the time which needs to be sent to enable caching of s3 bucket data.
+
+- **middlewares** - An object to pass middlewares for the existing routes. These will be attached before the respective route handler.
+```
+middleswares: {
+	upload: [],
+	search: []
+}
+```

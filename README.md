@@ -38,7 +38,7 @@ app.use("/gallery", gallery(AWS_CREDS));
 
 - **middlewares** - An object to pass middlewares for the existing routes. These will be attached before the respective route handler.
 ```
-middleswares: {
+middlewares: {
 	upload: [],
 	search: []
 }

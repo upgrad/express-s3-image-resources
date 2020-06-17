@@ -36,7 +36,7 @@ module.exports = function (awsS3Client, metaData, query, cache, callback) {
 
 	if (serveCacheData() && store.imageJson && store.imageJson.length) search();else {
 		fetchImageFromS3(awsS3Client, metaData, function (err, data) {
-			if (err) callBack(err);
+			if (err) callback(err);
 			store.imageJson = data;
 			store.lastSyncTime = Date.now();
 			search();

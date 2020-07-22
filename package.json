@@ -1,6 +1,6 @@
 {
 	"name": "express-s3-image-resources",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A middleware which adds APIs to interact with AWS S3",
 	"main": "dist/es5/lib/index.js",
 	"scripts": {

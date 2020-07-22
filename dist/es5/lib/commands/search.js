@@ -49,16 +49,27 @@ var fetchImageFromS3 = function fetchImageFromS3(awsS3Client, metaData, callback
 		Bucket: "" + metaData.s3Bucket,
 		Prefix: metaData.s3Path + "/"
 	};
-	awsS3Client.listObjectsV2(params, function (err, s3Data) {
-		if (err) callback(err && err.stack);else {
-			var data = s3Data.Contents.map(function (item) {
-				return {
-					size: item.Size,
-					slug: item.Key.replace(params.Prefix, ""),
-					lastModified: item.LastModified
-				};
-			});
-			callback(null, data);
-		}
-	});
+	var data = [];
+	var list = function list() {
+		awsS3Client.listObjectsV2(params, function (err, s3Data) {
+			if (err) callback(err && err.stack);else {
+				s3Data.Contents.forEach(function (item) {
+					data.push({
+						size: item.Size,
+						slug: item.Key.replace(params.Prefix, ""),
+						lastModified: item.LastModified
+					});
+				});
+
+				if (s3Data.IsTruncated) {
+					params.ContinuationToken = s3Data.NextContinuationToken;
+					list();
+				} else {
+					callback(null, data);
+				}
+			}
+		});
+	};
+
+	list();
 };
